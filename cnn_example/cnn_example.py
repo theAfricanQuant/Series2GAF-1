@@ -22,13 +22,13 @@ GenerateGAF(all_ts = timeSeries,
             rolling_length = rollingLength,
             fname = fileName)
 
-            
+
 # -------------------------------------------------------------------
 # CNN Example:
 
 # using the generated GAF in previous step
 # data shape: (15, 50, 50)
-gaf = np.load('%s_gaf.pkl'%fileName)
+gaf = np.load(f'{fileName}_gaf.pkl')
 gaf = np.reshape(gaf, (gaf.shape[0], gaf.shape[1], gaf.shape[2], 1))
 
 # the label is consisted of numbers 1, 2 and 3
@@ -51,4 +51,6 @@ train_history = cnn_model.fit(x=gaf, y=label,
                                 validation_split=0.2, verbose=2)
 
 # save trained model
-cnn_model.save_model('model_%s.h5'%datetime.strftime(datetime.today(),'%Y%m%d%H%M'))
+cnn_model.save_model(
+    f"model_{datetime.strftime(datetime.today(), '%Y%m%d%H%M')}.h5"
+)
